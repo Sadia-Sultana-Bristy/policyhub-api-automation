@@ -1,0 +1,44 @@
+{
+  "name": "policyhub-api-automation",
+  "version": "1.0.0",
+  "description": "API automation framework for an insurance policy platform: REST validation, auth, request chaining, idempotency, SQL database verification and CI/CD with Playwright.",
+  "main": "playwright.config.js",
+  "scripts": {
+    "start:server": "node mock-server/server.js",
+    "test": "playwright test",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:negative": "playwright test --grep @negative",
+    "test:boundary": "playwright test --grep @boundary",
+    "test:db": "playwright test --grep @db",
+    "test:e2e": "playwright test --grep @e2e",
+    "test:auth": "playwright test tests/auth",
+    "report": "playwright show-report reports/html",
+    "report:summary": "node utils/reportSummary.js",
+    "clean": "node -e \"require('fs').rmSync('reports/html',{recursive:true,force:true});require('fs').rmSync('reports/junit',{recursive:true,force:true});require('fs').rmSync('reports/json',{recursive:true,force:true});require('fs').rmSync('reports/test-artifacts',{recursive:true,force:true})\""
+  },
+  "keywords": [
+    "api-testing",
+    "playwright",
+    "qa-automation",
+    "rest",
+    "insurance",
+    "sql",
+    "ci-cd",
+    "sdet"
+  ],
+  "author": "Sadia Sultana Bristy",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^18.0.10",
+    "express": "^5.3.0",
+    "jsonwebtoken": "^9.0.3"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.1",
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=22.13"
+  }
+}

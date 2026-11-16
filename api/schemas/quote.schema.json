@@ -1,0 +1,30 @@
+{
+  "$id": "quote",
+  "title": "Quote",
+  "type": "object",
+  "required": ["id", "customerId", "productCode", "coverageAmount", "termMonths", "premium", "status", "expiresAt", "createdAt"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "pattern": "^quo_[a-f0-9]{20}$" },
+    "customerId": { "type": "string", "pattern": "^cus_" },
+    "productCode": { "enum": ["AUTO", "HOME"] },
+    "coverageAmount": { "type": "number", "minimum": 10000, "maximum": 1000000 },
+    "termMonths": { "enum": [6, 12, 24] },
+    "premium": {
+      "type": "object",
+      "required": ["baseRate", "ageFactor", "termFactor", "annualPremium", "totalPremium", "currency"],
+      "additionalProperties": false,
+      "properties": {
+        "baseRate": { "type": "number", "exclusiveMinimum": 0 },
+        "ageFactor": { "type": "number", "exclusiveMinimum": 0 },
+        "termFactor": { "type": "number", "exclusiveMinimum": 0 },
+        "annualPremium": { "type": "number", "exclusiveMinimum": 0 },
+        "totalPremium": { "type": "number", "exclusiveMinimum": 0 },
+        "currency": { "type": "string", "pattern": "^[A-Z]{3}$" }
+      }
+    },
+    "status": { "enum": ["QUOTED", "BOUND", "EXPIRED"] },
+    "expiresAt": { "type": "string", "format": "date-time" },
+    "createdAt": { "type": "string", "format": "date-time" }
+  }
+}

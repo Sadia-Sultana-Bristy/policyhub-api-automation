@@ -1,0 +1,13 @@
+{
+  "$id": "token",
+  "title": "Access token response",
+  "type": "object",
+  "required": ["accessToken", "tokenType", "expiresIn", "role"],
+  "additionalProperties": false,
+  "properties": {
+    "accessToken": { "type": "string", "pattern": "^[\\w-]+\\.[\\w-]+\\.[\\w-]+$" },
+    "tokenType": { "const": "Bearer" },
+    "expiresIn": { "type": "integer", "minimum": 1 },
+    "role": { "enum": ["AGENT", "VIEWER"] }
+  }
+}

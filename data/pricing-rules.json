@@ -1,0 +1,16 @@
+{
+  "description": "PolicyHub rating rules (business specification used as the test oracle)",
+  "currency": "USD",
+  "products": {
+    "AUTO": { "baseRate": 0.035 },
+    "HOME": { "baseRate": 0.012 }
+  },
+  "ageBands": [
+    { "name": "young driver", "minAge": 18, "maxAge": 24, "factor": 1.6 },
+    { "name": "standard",     "minAge": 25, "maxAge": 64, "factor": 1.0 },
+    { "name": "senior",       "minAge": 65, "maxAge": 75, "factor": 1.3 }
+  ],
+  "termFactors": { "6": 0.55, "12": 1.0, "24": 1.9 },
+  "coverage": { "min": 10000, "max": 1000000 },
+  "quoteValidityDays": 30
+}

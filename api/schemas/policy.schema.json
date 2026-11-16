@@ -1,0 +1,50 @@
+{
+  "$id": "policy",
+  "title": "Policy",
+  "type": "object",
+  "required": ["id", "policyNumber", "quoteId", "customerId", "productCode", "coverageAmount", "premium", "currency", "status", "effectiveDate", "expiryDate", "payment", "createdAt"],
+  "additionalProperties": false,
+  "definitions": {
+    "payment": {
+      "type": "object",
+      "required": ["id", "type", "amount", "currency", "status", "method"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^pay_" },
+        "type": { "enum": ["CHARGE", "REFUND"] },
+        "amount": { "type": "number", "minimum": 0 },
+        "currency": { "type": "string" },
+        "status": { "enum": ["SUCCEEDED", "FAILED"] },
+        "method": { "type": "string" }
+      }
+    }
+  },
+  "properties": {
+    "id": { "type": "string", "pattern": "^pol_[a-f0-9]{20}$" },
+    "policyNumber": { "type": "string", "pattern": "^PH-\\d{4}-\\d{6}$" },
+    "quoteId": { "type": "string", "pattern": "^quo_" },
+    "customerId": { "type": "string", "pattern": "^cus_" },
+    "productCode": { "enum": ["AUTO", "HOME"] },
+    "coverageAmount": { "type": "number" },
+    "premium": { "type": "number", "exclusiveMinimum": 0 },
+    "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+    "status": { "enum": ["ACTIVE", "CANCELLED"] },
+    "effectiveDate": { "type": "string", "format": "date" },
+    "expiryDate": { "type": "string", "format": "date" },
+    "payment": { "$ref": "#/definitions/payment" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "cancellation": {
+      "type": "object",
+      "required": ["cancelledAt", "reason", "refund"],
+      "additionalProperties": false,
+      "properties": {
+        "cancelledAt": { "type": "string", "format": "date-time" },
+        "reason": { "enum": ["CUSTOMER_REQUEST", "NON_PAYMENT", "UNDERWRITING", "OTHER"] },
+        "refund": { "$ref": "#/definitions/payment" }
+      }
+    }
+  },
+  "if": { "properties": { "status": { "const": "CANCELLED" } } },
+  "then": { "required": ["cancellation"] },
+  "else": { "not": { "required": ["cancellation"] } }
+}

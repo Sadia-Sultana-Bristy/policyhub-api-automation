@@ -1,0 +1,11 @@
+{
+  "$id": "policy-list",
+  "title": "Customer policy list",
+  "type": "object",
+  "required": ["data", "total"],
+  "additionalProperties": false,
+  "properties": {
+    "data": { "type": "array", "items": { "$ref": "policy" } },
+    "total": { "type": "integer", "minimum": 0 }
+  }
+}

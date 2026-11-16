@@ -1,0 +1,9 @@
+node_modules/
+.env
+database/*.db
+database/*.db-*
+reports/html/
+reports/junit/
+reports/json/
+reports/test-artifacts/
+reports/summary.md

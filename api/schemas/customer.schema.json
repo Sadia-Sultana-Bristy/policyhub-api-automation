@@ -1,0 +1,17 @@
+{
+  "$id": "customer",
+  "title": "Customer",
+  "type": "object",
+  "required": ["id", "firstName", "lastName", "email", "dateOfBirth", "phone", "country", "createdAt"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "pattern": "^cus_[a-f0-9]{20}$" },
+    "firstName": { "type": "string", "minLength": 1, "maxLength": 50 },
+    "lastName": { "type": "string", "minLength": 1, "maxLength": 50 },
+    "email": { "type": "string", "format": "email" },
+    "dateOfBirth": { "type": "string", "format": "date" },
+    "phone": { "type": ["string", "null"] },
+    "country": { "type": "string", "pattern": "^[A-Z]{2}$" },
+    "createdAt": { "type": "string", "format": "date-time" }
+  }
+}
